@@ -18,12 +18,12 @@ public class Task {
     private String name;
 
     private String description;
-
-    @ManyToOne
-    private Project project;
-
-   @ManyToOne
-   private Milestone milestone;
+//
+//    @ManyToOne
+//    private Project project;
+//
+//    @ManyToOne
+//    private Milestone milestone;
 
     public Task(String name, String description) {
         this.name = name;
