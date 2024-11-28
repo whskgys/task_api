@@ -1,0 +1,26 @@
+### TASK 생성
+POST localhost:8080/users/1/projects/1/tasks
+Content-Type: application/json
+
+{
+   "name" : "task1",
+   "description" : "업무1"
+}
+
+### Task 조회
+GET localhost:8080/users/1/projects/1/tasks
+
+### Task 1개 조회
+GET localhost:8080/users/1/projects/1/tasks/1
+
+### Task 수정
+PUT localhost:8080/users/1/projects/1/tasks/1
+Content-Type: application/json
+
+{
+  "name" : "task2",
+  "description" : "업무2"
+}
+
+### Task 삭제
+DELETE localhost:8080/users/1/projects/1/tasks/1

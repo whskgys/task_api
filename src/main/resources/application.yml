@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: mini-dooray-2team-task-api
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://133.186.241.167:3306/nhn_academy_2?useSSL=false&serverTimezone=Asia/Seoul
+    username: nhn_academy_2
+    password: 09EQaSt6Xvb?P?1h
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+      dialect: org.hibernate.dialect.MySQL8Dialect
