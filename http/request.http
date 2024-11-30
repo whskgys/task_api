@@ -1,11 +1,11 @@
 ### TASK 생성
-POST localhost:8080/users/testMember/projects/5/tasks
+POST localhost:8080/users/testMember/projects/1/tasks
 Content-Type: application/json
 
 {
    "name" : "task1",
-   "description" : "업무1",
-  "projectId" : 5
+   "description" : "업무1"
+
 }
 
 ### Task 조회

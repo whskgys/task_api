@@ -19,7 +19,7 @@ public class TaskController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/tasks")
     public ResponseEntity createTask(@PathVariable String userId, @PathVariable long projectId, @RequestBody TaskCreateCommand taskCreateCommand) {
-        taskService.create(taskCreateCommand);
+        taskService.create(projectId,taskCreateCommand);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

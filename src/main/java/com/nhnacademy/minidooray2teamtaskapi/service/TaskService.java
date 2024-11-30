@@ -1,5 +1,6 @@
 package com.nhnacademy.minidooray2teamtaskapi.service;
 
+import com.nhnacademy.minidooray2teamtaskapi.exception.ProjectNotFoundException;
 import com.nhnacademy.minidooray2teamtaskapi.model.project.Project;
 import com.nhnacademy.minidooray2teamtaskapi.model.task.Task;
 import com.nhnacademy.minidooray2teamtaskapi.model.task.TaskCreateCommand;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @NoArgsConstructor
@@ -21,10 +23,12 @@ public class TaskService {
     @Autowired
     private ProjectRepository projectRepository;
 
-    public Task create(TaskCreateCommand taskCreateCommand) {
+    public Task create(long projectId, TaskCreateCommand taskCreateCommand) {
         Task task = new Task(taskCreateCommand.getName(), taskCreateCommand.getDescription());
-        task.setProject(projectRepository.findById(taskCreateCommand.getProjectId()).orElse(null));
+       // task.getProject().setProjectId(taskCreateCommand.getProjectId());
 
+        Project findProject = projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
+        task.setProject(findProject);
         return taskRepository.save(task);
     }
 
