@@ -16,7 +16,8 @@ CREATE TABLE task(
 CREATE TABLE comments(
                          comment_id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                          task_id bigint NOT NULL,
-                         user_id varchar(20) NOT NULL
+                         user_id varchar(20) NOT NULL,
+                         content text NOT NULL
 );
 
 
@@ -60,25 +61,34 @@ CREATE TABLE user(
 
 
 -- 제약사항 설정
-ALTER TABLE task
-    ADD CONSTRAINT fk_task_project FOREIGN KEY (project_id) REFERENCES project(project_id) ON UPDATE CASCADE ON DELETE CASCADE ,
-    ADD CONSTRAINT fk_task_milesteon FOREIGN KEY (milestone) REFERENCES milestone(milestone_id);
+-- ALTER TABLE task
+--     ADD CONSTRAINT fk_task_project FOREIGN KEY (project_id) REFERENCES project(project_id) ON UPDATE CASCADE ON DELETE CASCADE ,
+--     ADD CONSTRAINT fk_task_milesteon FOREIGN KEY (milestone) REFERENCES milestone(milestone_id);
 
-ALTER TABLE comments
-    ADD CONSTRAINT fk_comment_task FOREIGN KEY (task_id) REFERENCES task(task_id) ON UPDATE CASCADE ON DELETE CASCADE ;
+-- ALTER TABLE comments
+--     ADD CONSTRAINT fk_comment_task FOREIGN KEY (task_id) REFERENCES task(task_id) ON UPDATE CASCADE ON DELETE CASCADE,
+--     ADD CONSTRAINT foreign key(user_id) references user(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
-ALTER TABLE project_user
-    ADD CONSTRAINT foreign key(project_id) references project(project_id) ON UPDATE CASCADE ON DELETE CASCADE;
+-- ALTER TABLE project_user
+--     ADD CONSTRAINT foreign key(project_id) references project(project_id) ON UPDATE CASCADE ON DELETE CASCADE,
+--     ADD CONSTRAINT foreign key(user_id) references user(id) ON UPDATE CASCADE ON DELETE CASCADE;
+--
+-- AlTER TABLE tag
+--     ADD CONSTRAINT fk_task_id FOREIGN KEY (task_id) REFERENCES task(task_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
-AlTER TABLE tag
-    ADD CONSTRAINT fk_task_id FOREIGN KEY (task_id) REFERENCES task(task_id) ON UPDATE CASCADE ON DELETE CASCADE;
+-- ALTER TABLE project
+--     ADD CONSTRAINT fk_project_state FOREIGN KEY (project_state_id) REFERENCES project_state(project_state_id);
 
-ALTER TABLE project
-    ADD CONSTRAINT fk_project_state FOREIGN KEY (project_state_id) REFERENCES project_state(project_state_id);
 
 -- 시작 데이터
 INSERT INTO project_state (project_state_id ,state) VALUES (0,'ACTIVE');
 INSERT INTO project_state (project_state_id, state) VALUES (1,'DORMANT');
 INSERT INTO project_state (project_state_id, state) VALUES (2,'CLOSED');
 
+INSERT INTO milestone (milestone_id, state) values (0,'WAITING');
+INSERT INTO milestone (milestone_id, state) values (1,'TODO');
+INSERT INTO milestone (milestone_id, state) values (2,'PROCEEDING');
+INSERT INTO milestone (milestone_id, state) values (3,'COMPLETED');
 
+insert into task (task_id,project_id,milestone,name,description) values (default,1,1,'testTask','This is task');
+insert into comments (comment_id, task_id,user_id,content) values (default, 1,'testMember','This is comment content');

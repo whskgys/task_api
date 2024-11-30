@@ -1,5 +1,6 @@
 package com.nhnacademy.minidooray2teamtaskapi.model.project;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nhnacademy.minidooray2teamtaskapi.user.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -7,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +41,15 @@ public class Project {
     @JoinColumn(name = "project_state_id")
     private ProjectStateEntity projectState;
 
+    @JsonProperty("createdDate")
+    private LocalDateTime createdDate;
+
     public Project(String admin, String name, ProjectStateEntity projectState) {
         this.admin = admin;
         this.name = name;
         this.projectState = projectState;
         this.users = new ArrayList<>();
+        this.createdDate = LocalDateTime.now();
     }
 
     public void addUser(User user) {

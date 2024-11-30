@@ -9,7 +9,7 @@ spring:
 #    password: 09EQaSt6Xvb?P?1h
     url: jdbc:mysql://127.0.0.1:3306/nhn_academy_2
     username: root
-    password: nahyun12
+    password: 66756675
   jpa:
     properties:
       hibernate:

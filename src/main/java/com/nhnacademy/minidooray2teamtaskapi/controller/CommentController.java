@@ -1,8 +1,10 @@
 package com.nhnacademy.minidooray2teamtaskapi.controller;
 
 import com.nhnacademy.minidooray2teamtaskapi.model.comment.Comment;
+import com.nhnacademy.minidooray2teamtaskapi.model.comment.CommentCreateCommand;
 import com.nhnacademy.minidooray2teamtaskapi.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,5 +28,34 @@ public class CommentController {
         return commentService.getComments(projectId, taskId);
     }
 
-//    @PostMapping("/")
- }
+    @PostMapping("/comments")
+    public ResponseEntity createComment(
+            @PathVariable("projectId") long projectId,
+            @PathVariable("taskId") long taskId,
+            @RequestBody CommentCreateCommand createCommand
+    ) {
+        commentService.enrollComment(projectId, taskId, createCommand);
+        return ResponseEntity.status(201).build();
+    }
+
+    @PostMapping("/comments/{commentId}")
+    public ResponseEntity updateComment(
+            @PathVariable("projectId") long projectId,
+            @PathVariable("taskId") long taskId,
+            @PathVariable("commentId") long commentId,
+            @RequestBody CommentCreateCommand createCommand
+    ) {
+        commentService.updateComment(projectId, taskId, commentId, createCommand);
+        return ResponseEntity.status(201).build();
+    }
+
+    @DeleteMapping("/comments/{commentId}")
+    public ResponseEntity deleteComment(
+            @PathVariable("projectId") long projectId,
+            @PathVariable("taskId") long taskId,
+            @PathVariable("commentId") long commentId
+    ) {
+        commentService.removeComment(projectId, taskId, commentId);
+        return ResponseEntity.status(200).build();
+    }
+}
