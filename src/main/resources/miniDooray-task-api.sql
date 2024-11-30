@@ -9,7 +9,8 @@ CREATE TABLE task(
                      project_id bigint NOT NULL,
                      milestone bigint NOT NULL,
                      name varchar(20) NOT NULL,
-                     description text NOT NULL
+                     description text NOT NULL,
+                     created_date DATETIME NOT NULL
 );
 
 
@@ -17,7 +18,8 @@ CREATE TABLE comments(
                          comment_id bigint NOT NULL AUTO_INCREMENT PRIMARY KEY,
                          task_id bigint NOT NULL,
                          user_id varchar(20) NOT NULL,
-                         content text NOT NULL
+                         content text NOT NULL,
+                         created_date DATETIME NOT NULL
 );
 
 
@@ -34,6 +36,7 @@ create table project_state(
 
 
 CREATE TABLE tag(
+                    tag_id bigint PRIMARY KEY auto_increment,
                     task_id bigint NOT NULL,
                     name varchar(20) NOT NULL
 );
@@ -50,7 +53,8 @@ CREATE TABLE project (
                          project_id BIGINT AUTO_INCREMENT PRIMARY KEY,
                          project_state_id INT NOT NULL,
                          name VARCHAR(20),
-                         admin VARCHAR(20)
+                         admin VARCHAR(20),
+                         created_date DATETIME NOT NULL
 
 );
 
@@ -58,26 +62,6 @@ CREATE TABLE user(
                      id varchar(20) PRIMARY KEY
 );
 
-
-
--- 제약사항 설정
--- ALTER TABLE task
---     ADD CONSTRAINT fk_task_project FOREIGN KEY (project_id) REFERENCES project(project_id) ON UPDATE CASCADE ON DELETE CASCADE ,
---     ADD CONSTRAINT fk_task_milesteon FOREIGN KEY (milestone) REFERENCES milestone(milestone_id);
-
--- ALTER TABLE comments
---     ADD CONSTRAINT fk_comment_task FOREIGN KEY (task_id) REFERENCES task(task_id) ON UPDATE CASCADE ON DELETE CASCADE,
---     ADD CONSTRAINT foreign key(user_id) references user(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
--- ALTER TABLE project_user
---     ADD CONSTRAINT foreign key(project_id) references project(project_id) ON UPDATE CASCADE ON DELETE CASCADE,
---     ADD CONSTRAINT foreign key(user_id) references user(id) ON UPDATE CASCADE ON DELETE CASCADE;
---
--- AlTER TABLE tag
---     ADD CONSTRAINT fk_task_id FOREIGN KEY (task_id) REFERENCES task(task_id) ON UPDATE CASCADE ON DELETE CASCADE;
-
--- ALTER TABLE project
---     ADD CONSTRAINT fk_project_state FOREIGN KEY (project_state_id) REFERENCES project_state(project_state_id);
 
 
 -- 시작 데이터
@@ -90,5 +74,3 @@ INSERT INTO milestone (milestone_id, state) values (1,'TODO');
 INSERT INTO milestone (milestone_id, state) values (2,'PROCEEDING');
 INSERT INTO milestone (milestone_id, state) values (3,'COMPLETED');
 
-insert into task (task_id,project_id,milestone,name,description) values (default,1,1,'testTask','This is task');
-insert into comments (comment_id, task_id,user_id,content) values (default, 1,'testMember','This is comment content');
