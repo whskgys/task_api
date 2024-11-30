@@ -22,7 +22,7 @@ CREATE TABLE comments(
 
 create table project_user(
                              project_id bigint not null,
-                             user_id varchar(20) NOT NULL
+                             user_id varchar(20) NULL
 );
 
 create table project_state(
@@ -54,7 +54,7 @@ CREATE TABLE project (
 );
 
 CREATE TABLE user(
-    user_id varchar(20) PRIMARY KEY
+                     id varchar(20) PRIMARY KEY
 );
 
 

@@ -8,6 +8,7 @@ import com.nhnacademy.minidooray2teamtaskapi.model.project.ProjectCreateCommand;
 import com.nhnacademy.minidooray2teamtaskapi.model.project.ProjectState;
 import com.nhnacademy.minidooray2teamtaskapi.model.project.ProjectStateEntity;
 import com.nhnacademy.minidooray2teamtaskapi.repository.ProjectRepository;
+import com.nhnacademy.minidooray2teamtaskapi.repository.UserRepository;
 import com.nhnacademy.minidooray2teamtaskapi.user.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class ProjectService {
     private final ProjectRepository projectRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public ProjectService(ProjectRepository projectRepository) {
+    public ProjectService(ProjectRepository projectRepository, UserRepository userRepository) {
         this.projectRepository = projectRepository;
+        this.userRepository = userRepository;
     }
     @Transactional
     public Project getProject(String userId, String projectId) {
@@ -51,7 +55,12 @@ public class ProjectService {
                 projectStateEntity
         );
 
-        project.addUser(new User(userId));
+
+        //유저 없으면 생성
+        Optional<User> existingUser = userRepository.findById(userId);
+        User user = existingUser.orElseGet(() -> userRepository.save(new User(userId)));
+
+        project.addUser(user);
 
         projectRepository.save(project);
 
