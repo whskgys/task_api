@@ -22,11 +22,11 @@ CREATE TABLE comments(
 
 create table project_user(
                              project_id bigint not null,
-                             user_id varchar(20) NULL
+                             user_id varchar(20) NOT NULL
 );
 
 create table project_state(
-                              project_state_id int auto_increment,
+                              project_state_id int,
                               state varchar(10) not null,
                               primary key(project_state_id)
 );
@@ -48,10 +48,13 @@ CREATE TABLE milestone(
 CREATE TABLE project (
                          project_id BIGINT AUTO_INCREMENT PRIMARY KEY,
                          project_state_id INT NOT NULL,
-                         state  VARCHAR(20) NOT NULL DEFAULT 'ACTIVE' CHECK (state IN ('ACTIVE', 'DORMANT', 'CLOSED')),
                          name VARCHAR(20),
                          admin VARCHAR(20)
 
+);
+
+CREATE TABLE user(
+    user_id varchar(20) PRIMARY KEY
 );
 
 
@@ -70,12 +73,12 @@ ALTER TABLE project_user
 AlTER TABLE tag
     ADD CONSTRAINT fk_task_id FOREIGN KEY (task_id) REFERENCES task(task_id) ON UPDATE CASCADE ON DELETE CASCADE;
 
-# ALTER TABLE project
-#     ADD CONSTRAINT fk_project_state FOREIGN KEY (project_state_id) REFERENCES project_state(project_state_id);
+ALTER TABLE project
+    ADD CONSTRAINT fk_project_state FOREIGN KEY (project_state_id) REFERENCES project_state(project_state_id);
 
 -- 시작 데이터
-# INSERT INTO project_state (project_state_id ,state) VALUES (0,'ACTIVE');
-# INSERT INTO project_state (project_state_id, state) VALUES (1,'DORMANT');
-# INSERT INTO project_state (project_state_id, state) VALUES (2,'CLOSED');
+INSERT INTO project_state (project_state_id ,state) VALUES (0,'ACTIVE');
+INSERT INTO project_state (project_state_id, state) VALUES (1,'DORMANT');
+INSERT INTO project_state (project_state_id, state) VALUES (2,'CLOSED');
 
 

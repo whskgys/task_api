@@ -1,5 +1,5 @@
 ### TASK 생성
-POST localhost:8080/users/testMember/projects/1/tasks
+POST localhost:8080/users/testMember/projects/2/tasks
 Content-Type: application/json
 
 {

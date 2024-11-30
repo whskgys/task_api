@@ -1,6 +1,7 @@
 package com.nhnacademy.minidooray2teamtaskapi.controller;
 
 import com.nhnacademy.minidooray2teamtaskapi.model.project.Project;
+import com.nhnacademy.minidooray2teamtaskapi.model.project.ProjectCreateCommand;
 import com.nhnacademy.minidooray2teamtaskapi.model.project.ProjectState;
 import com.nhnacademy.minidooray2teamtaskapi.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class ProjectController {
     }
 
     @PostMapping("users/{userId}/projects")
-    public ResponseEntity createProject(@PathVariable(name = "userId") String userId, @RequestBody Project project) {
-        projectService.enrollProject(userId, project);
+    public ResponseEntity createProject(@PathVariable(name = "userId") String userId, @RequestBody ProjectCreateCommand createCommand) {
+        projectService.enrollProject(userId, createCommand);
         return ResponseEntity.status(201).build();
     }
 
@@ -42,9 +43,9 @@ public class ProjectController {
 
     }
 
-    @PutMapping("users/{userId}/projects/{projectId}")
-    public ResponseEntity putProject(@PathVariable(name = "userId") String userId, @PathVariable(name = "projectId") String projectId, @RequestBody Project project) {
-        projectService.updateProject(userId, projectId, project);
+    @PostMapping("users/{userId}/projects/{projectId}")
+    public ResponseEntity putProject(@PathVariable(name = "userId") String userId, @PathVariable(name = "projectId") String projectId, @RequestBody ProjectCreateCommand createCommand) {
+        projectService.updateProject(userId, projectId, createCommand);
         return ResponseEntity.status(200).build();
     }
 }

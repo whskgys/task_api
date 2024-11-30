@@ -4,14 +4,17 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://133.186.241.167:3306/nhn_academy_2
-    username: nhn_academy_2
-    password: 09EQaSt6Xvb?P?1h
+#    url: jdbc:mysql://133.186.241.167:3306/nhn_academy_2
+#    username: nhn_academy_2
+#    password: 09EQaSt6Xvb?P?1h
+    url: jdbc:mysql://localhost:3306/nhn_academy_2
+    username: root
+    password: 66756675
   jpa:
     properties:
       hibernate:
         show_sql: true
         hbm2ddl:
-          auto: validate
+          auto: update
         dialect: org.hibernate.dialect.MySQLDialect
     database-platform: org.hibernate.dialect.MySQLDialect

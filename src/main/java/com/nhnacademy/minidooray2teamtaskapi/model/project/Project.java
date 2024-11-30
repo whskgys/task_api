@@ -1,11 +1,17 @@
 package com.nhnacademy.minidooray2teamtaskapi.model.project;
 
+import com.nhnacademy.minidooray2teamtaskapi.user.User;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Getter
 public class Project {
     @Id
@@ -18,8 +24,27 @@ public class Project {
     @Setter
     private String name;
 
-    @Setter
-    @Enumerated(EnumType.STRING)
-    private ProjectState state;
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(
+            name = "project_user",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> users;
 
+    @Setter
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "project_state_id")
+    private ProjectStateEntity projectState;
+
+    public Project(String admin, String name, ProjectStateEntity projectState) {
+        this.admin = admin;
+        this.name = name;
+        this.projectState = projectState;
+        this.users = new ArrayList<>();
+    }
+
+    public void addUser(User user) {
+        this.users.add(user);
+    }
 }

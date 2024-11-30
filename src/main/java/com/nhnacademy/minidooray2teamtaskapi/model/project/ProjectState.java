@@ -2,20 +2,21 @@ package com.nhnacademy.minidooray2teamtaskapi.model.project;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Getter;
 
 
+@Getter
 public enum ProjectState {
-    ACTIVE,
-    DORMANT,
-    CLOSED;
+    ACTIVE(0),
+    DORMANT(1),
+    CLOSED(2);
 
 
-    public long getOrdinal() {
-        return this.ordinal() + 1;
+    private int id;
+
+    ProjectState(int id) {
+        this.id = id;
     }
-
-
-
 
     @JsonValue
     public String toJson() {
@@ -31,4 +32,5 @@ public enum ProjectState {
         }
         return ACTIVE;
     }
+
 }

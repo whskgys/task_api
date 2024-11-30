@@ -13,6 +13,23 @@ Content-Type: application/json
   "state": "active"
 }
 
+### 유저의 프로젝트 조회
+GET http://localhost:8080/users/testMember/projects
+
 ### 프로젝트 한개 조회
-GET http://localhost:8080/users/testMember/projects/1
+GET http://localhost:8080/users/testMember/projects/8
+
+### 프로젝트 삭제
+DELETE http://localhost:8080/users/testMember/projects/7
+
+### 프로젝트 수정
+POST localhost:8080/users/testMember/projects/8
+Content-Type: application/json
+
+{
+  "admin": "testMember",
+  "name": "testProjectNameModify"
+}
+
+
 
