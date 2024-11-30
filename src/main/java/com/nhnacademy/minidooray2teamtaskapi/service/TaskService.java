@@ -1,8 +1,12 @@
 package com.nhnacademy.minidooray2teamtaskapi.service;
 
+import com.nhnacademy.minidooray2teamtaskapi.model.project.Project;
 import com.nhnacademy.minidooray2teamtaskapi.model.task.Task;
+import com.nhnacademy.minidooray2teamtaskapi.model.task.TaskCreateCommand;
+import com.nhnacademy.minidooray2teamtaskapi.repository.ProjectRepository;
 import com.nhnacademy.minidooray2teamtaskapi.repository.TaskRepository;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,10 +16,16 @@ import java.util.List;
 @NoArgsConstructor
 public class TaskService {
 
+    @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private ProjectRepository projectRepository;
 
-    public Task create(String name, String description) {
-        return taskRepository.save(new Task(name, description));
+    public Task create(TaskCreateCommand taskCreateCommand) {
+        Task task = new Task(taskCreateCommand.getName(), taskCreateCommand.getDescription());
+        task.setProject(projectRepository.findById(taskCreateCommand.getProjectId()).orElse(null));
+
+        return taskRepository.save(task);
     }
 
     public List<Task> findByProjectId(String userId, long projectId) {

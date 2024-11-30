@@ -1,5 +1,6 @@
 package com.nhnacademy.minidooray2teamtaskapi.model.task;
 
+import com.nhnacademy.minidooray2teamtaskapi.model.project.Project;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,9 +19,11 @@ public class Task {
     private String name;
 
     private String description;
-//
-//    @ManyToOne
-//    private Project project;
+
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
 //
 //    @ManyToOne
 //    private Milestone milestone;
@@ -28,6 +31,8 @@ public class Task {
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
+
+
     }
 
 

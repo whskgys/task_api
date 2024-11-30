@@ -1,6 +1,7 @@
 package com.nhnacademy.minidooray2teamtaskapi.controller;
 
 import com.nhnacademy.minidooray2teamtaskapi.model.task.Task;
+import com.nhnacademy.minidooray2teamtaskapi.model.task.TaskCreateCommand;
 import com.nhnacademy.minidooray2teamtaskapi.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,8 @@ public class TaskController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/tasks")
-    public ResponseEntity createTask(@RequestBody Task task) {
-        taskService.create(task.getName(), task.getDescription());
+    public ResponseEntity createTask(@PathVariable String userId, @PathVariable long projectId, @RequestBody TaskCreateCommand taskCreateCommand) {
+        taskService.create(taskCreateCommand);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

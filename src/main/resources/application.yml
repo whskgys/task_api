@@ -7,9 +7,9 @@ spring:
 #    url: jdbc:mysql://133.186.241.167:3306/nhn_academy_2
 #    username: nhn_academy_2
 #    password: 09EQaSt6Xvb?P?1h
-    url: jdbc:mysql://localhost:3306/nhn_academy_2
+    url: jdbc:mysql://127.0.0.1:3306/nhn_academy_2
     username: root
-    password: 66756675
+    password: nahyun12
   jpa:
     properties:
       hibernate:
