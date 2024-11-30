@@ -1,9 +1,5 @@
 package com.nhnacademy.minidooray2teamtaskapi.model.task;
 
-
-import com.nhnacademy.minidooray2teamtaskapi.model.milestone.Milestone;
-import com.nhnacademy.minidooray2teamtaskapi.model.milestone.MilestoneState;
-import com.nhnacademy.minidooray2teamtaskapi.model.project.Project;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -17,26 +13,21 @@ import lombok.Setter;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long taskId;
+    private Long task_id;
 
     private String name;
 
     private String description;
+//
+//    @ManyToOne
+//    private Project project;
+//
+//    @ManyToOne
+//    private Milestone milestone;
 
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
-
-    @ManyToOne
-    @JoinColumn(name = "milestone",nullable = false)
-    private Milestone milestone;
-
-    public Task(String name, String description, Milestone milestone) {
+    public Task(String name, String description) {
         this.name = name;
         this.description = description;
-        this.milestone = milestone;
-
     }
 
 

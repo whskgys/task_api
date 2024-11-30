@@ -17,13 +17,13 @@ Content-Type: application/json
 GET http://localhost:8080/users/testMember/projects
 
 ### 프로젝트 한개 조회
-GET http://localhost:8080/users/testMember/projects/8
+GET http://localhost:8080/users/testMember/projects/1
 
 ### 프로젝트 삭제
-DELETE http://localhost:8080/users/testMember/projects/7
+DELETE http://localhost:8080/users/testMember/projects/2
 
 ### 프로젝트 수정
-POST localhost:8080/users/testMember/projects/8
+POST localhost:8080/users/testMember/projects/1
 Content-Type: application/json
 
 {
