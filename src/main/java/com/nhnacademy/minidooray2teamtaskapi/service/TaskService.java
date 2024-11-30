@@ -1,9 +1,12 @@
 package com.nhnacademy.minidooray2teamtaskapi.service;
 
 import com.nhnacademy.minidooray2teamtaskapi.exception.ProjectNotFoundException;
+import com.nhnacademy.minidooray2teamtaskapi.model.milestone.Milestone;
+import com.nhnacademy.minidooray2teamtaskapi.model.milestone.MilestoneState;
 import com.nhnacademy.minidooray2teamtaskapi.model.project.Project;
 import com.nhnacademy.minidooray2teamtaskapi.model.task.Task;
 import com.nhnacademy.minidooray2teamtaskapi.model.task.TaskCreateCommand;
+import com.nhnacademy.minidooray2teamtaskapi.repository.MilestoneRepository;
 import com.nhnacademy.minidooray2teamtaskapi.repository.ProjectRepository;
 import com.nhnacademy.minidooray2teamtaskapi.repository.TaskRepository;
 import lombok.NoArgsConstructor;
@@ -24,8 +27,12 @@ public class TaskService {
     private ProjectRepository projectRepository;
 
     public Task create(long projectId, TaskCreateCommand taskCreateCommand) {
-        Task task = new Task(taskCreateCommand.getName(), taskCreateCommand.getDescription());
-       // task.getProject().setProjectId(taskCreateCommand.getProjectId());
+        MilestoneState milestonestate = MilestoneState.WAITING;
+        Milestone milestone = new Milestone(
+                (long) milestonestate.getId(),
+                milestonestate.name()
+        );
+        Task task = new Task(taskCreateCommand.getName(), taskCreateCommand.getDescription(), milestone);
 
         Project findProject = projectRepository.findById(projectId).orElseThrow(ProjectNotFoundException::new);
         task.setProject(findProject);

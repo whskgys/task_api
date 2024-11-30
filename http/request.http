@@ -5,7 +5,6 @@ Content-Type: application/json
 {
    "name" : "task1",
    "description" : "업무1"
-
 }
 
 ### Task 조회
