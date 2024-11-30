@@ -3,7 +3,6 @@ package com.nhnacademy.minidooray2teamtaskapi.model.task;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nhnacademy.minidooray2teamtaskapi.model.milestone.Milestone;
-import com.nhnacademy.minidooray2teamtaskapi.model.milestone.MilestoneState;
 import com.nhnacademy.minidooray2teamtaskapi.model.project.Project;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

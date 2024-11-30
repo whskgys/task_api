@@ -13,6 +13,7 @@ import com.nhnacademy.minidooray2teamtaskapi.repository.UserRepository;
 import com.nhnacademy.minidooray2teamtaskapi.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
 
@@ -49,24 +50,29 @@ public class CommentService {
 
     }
 
-    public void updateComment(long projectId, long taskId, long commentId, CommentCreateCommand createCommand) {
+    public void updateComment(String userId, long projectId, long taskId, long commentId, CommentCreateCommand createCommand) {
         Task task = taskRepository.findById(taskId).orElseThrow(TaskNotFoundException::new);
         if (task.getProject().getProjectId() != projectId) {
             throw new TaskNotInProject(task.getName() + "not in project");
         }
 
         Comment findComment = commentRepository.findById(commentId).orElseThrow(() -> new CommentNotFoundException("comment not found"));
-
+        if (!StringUtils.equals(findComment.getUser(),userId)) {
+            throw new RuntimeException(userId + "can not update comment");
+        }
         findComment.setContent(createCommand.getContent());
         commentRepository.save(findComment);
     }
 
-    public void removeComment(long projectId, long taskId, long commentId) {
+    public void removeComment(String userId, long projectId, long taskId, long commentId) {
         Task task = taskRepository.findById(taskId).orElseThrow(TaskNotFoundException::new);
         if (task.getProject().getProjectId() != projectId) {
             throw new TaskNotInProject(task.getName() + "not in project");
         }
         Comment findComment = commentRepository.findById(commentId).orElseThrow(() -> new CommentNotFoundException("comment not found"));
+        if (!StringUtils.equals(findComment.getUser(),userId)) {
+            throw new RuntimeException(userId + "can not delete comment");
+        }
         commentRepository.delete(findComment);
 
     }

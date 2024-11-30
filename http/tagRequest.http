@@ -1,0 +1,17 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### tag 생성
+POST localhost:8080/users/testMember/projects/1/tasks/1/tags
+Content-Type: application/json
+
+{
+  "name": "testTag"
+}
+
+### task의 tag전체 조회
+GET localhost:8080/users/testMember/projects/1/tasks/1/tags
+
+### tag삭제
+DELETE localhost:8080/users/testMember/projects/1/tasks/1/tags/10

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/projects/{projectId}/tasks/{taskId}")
+@RequestMapping("users/{userId}/projects/{projectId}/tasks/{taskId}")
 public class CommentController {
 
     private final CommentService commentService;
@@ -22,6 +22,7 @@ public class CommentController {
 
     @GetMapping("/comments")
     public List<Comment> getCommands(
+            @PathVariable("userId") String userId,
             @PathVariable("projectId") long projectId,
             @PathVariable("taskId") long taskId
     ) {
@@ -40,22 +41,24 @@ public class CommentController {
 
     @PostMapping("/comments/{commentId}")
     public ResponseEntity updateComment(
+            @PathVariable("userId") String userId,
             @PathVariable("projectId") long projectId,
             @PathVariable("taskId") long taskId,
             @PathVariable("commentId") long commentId,
             @RequestBody CommentCreateCommand createCommand
     ) {
-        commentService.updateComment(projectId, taskId, commentId, createCommand);
+        commentService.updateComment(userId, projectId, taskId, commentId, createCommand);
         return ResponseEntity.status(201).build();
     }
 
     @DeleteMapping("/comments/{commentId}")
     public ResponseEntity deleteComment(
+            @PathVariable("userId") String userId,
             @PathVariable("projectId") long projectId,
             @PathVariable("taskId") long taskId,
             @PathVariable("commentId") long commentId
     ) {
-        commentService.removeComment(projectId, taskId, commentId);
+        commentService.removeComment(userId,projectId, taskId, commentId);
         return ResponseEntity.status(200).build();
     }
 }

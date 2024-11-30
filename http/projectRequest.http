@@ -13,6 +13,16 @@ Content-Type: application/json
   "state": "active"
 }
 
+### 프로젝트 생성
+POST http://localhost:8080/users/testMember2/projects
+Content-Type: application/json
+
+{
+  "admin": "testMember2",
+  "name": "testProjectName2",
+  "state": "active"
+}
+
 ### 유저의 프로젝트 조회
 GET http://localhost:8080/users/testMember/projects
 
