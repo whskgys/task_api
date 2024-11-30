@@ -24,11 +24,8 @@ public class Project {
     @Setter
     private String name;
 
-<<<<<<< HEAD
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-=======
+
     @ManyToMany
->>>>>>> main
     @JoinTable(
             name = "project_user",
             joinColumns = @JoinColumn(name = "project_id"),
