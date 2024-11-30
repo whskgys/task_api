@@ -24,7 +24,7 @@ public class Project {
     @Setter
     private String name;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
     @JoinTable(
             name = "project_user",
             joinColumns = @JoinColumn(name = "project_id"),
